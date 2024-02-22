@@ -1,3 +1,9 @@
 x: 256
 y: 4.567
 z: hello
+[doctest] doctest version is "2.4.11"
+[doctest] run with "--help" for options
+===============================================================================
+[doctest] test cases: 0 | 0 passed | 0 failed | 0 skipped
+[doctest] assertions: 0 | 0 passed | 0 failed |
+[doctest] Status: SUCCESS!

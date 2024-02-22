@@ -1,3 +1,6 @@
+#define DOCTEST_CONFIG_IMPLEMENT
+
+#include <doctest/doctest.h>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -19,5 +22,14 @@ int main(int args, char *argv[]) {
             << "y: " << y << std::endl
             << "z: " << z << std::endl;
 
-  return 0;
+  doctest::Context ctx;
+
+  ctx.applyCommandLine(args, argv);
+
+  const int res = ctx.run();
+
+  if (ctx.shouldExit()) {
+    return res;
+  }
+  return res;
 }
