@@ -1,0 +1,34 @@
+name: Build and Test
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows, ubuntu, macos]
+    env:
+      plat: {{ matrix.os == 'ubuntu' && 'linux' || matrix.os }}
+    name: build-{{ env.plat }}
+    runs-on: {{ matrix.os }}-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install xmake
+      uses: xmake-io/github-action-setup-xmake@v1
+      with:
+        xmake-version: 2.8.6
+
+    - name: Build project with xmake
+      run: xmake -wvD
+
+    - name: Test
+      run: xmake run source | diff - expected.txt
+      if: matrix.os != windows
+
+    - name: Test
+      run: xmake run source
+      if: matrix.os == windows
+
